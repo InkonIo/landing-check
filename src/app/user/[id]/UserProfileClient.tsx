@@ -1,58 +1,63 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface UserProfileClientProps {
   id: string;
 }
 
 export default function UserProfileClient({ id }: UserProfileClientProps) {
+  const [showDownload, setShowDownload] = useState(false);
+
   useEffect(() => {
-    const tryOpenApp = () => {
-      // Попробуем оба способа
-      window.location.href = `persona://user/${id}`;
-      
-      // Fallback для iOS Universal Links
-      setTimeout(() => {
-        window.location.href = `https://personabest.com/user/${id}`;
-      }, 100);
-      
-      // Показываем предложение скачать через 2.5 секунды
-      setTimeout(() => {
-        const downloadPrompt = document.getElementById('download-prompt');
-        if (downloadPrompt) {
-          downloadPrompt.style.display = 'block';
-        }
-      }, 2500);
+    if (!id) return;
+
+    window.location.href = `persona://user/${id}`;
+
+    const timer = setTimeout(() => {
+      setShowDownload(true);
+    }, 2000);
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        clearTimeout(timer);
+      }
     };
 
-    if (id) {
-      tryOpenApp();
-    }
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, [id]);
+
+  if (!showDownload) {
+    return (
+      <div style={{ padding: '20px', textAlign: 'center' }}>
+        <h1>Открываем профиль...</h1>
+        <p>Если приложение установлено — оно откроется автоматически</p>
+      </div>
+    );
+  }
 
   return (
     <div style={{ padding: '20px', textAlign: 'center' }}>
-      <h1>Открытие профиля...</h1>
-      <p>Переходим в приложение Persona</p>
-      
-      <div id="download-prompt" style={{ display: 'none', marginTop: '30px' }}>
-        <h2>Приложение не установлено?</h2>
-        <p>Скачайте Persona, чтобы посмотреть этот профиль</p>
-        <div style={{ marginTop: '20px' }}>
-          <a 
-            href="https://apps.apple.com/app/persona" 
-            style={{ margin: '10px', padding: '10px 20px', backgroundColor: '#007AFF', color: 'white', textDecoration: 'none', borderRadius: '5px' }}
-          >
-            App Store
-          </a>
-          <a 
-            href="https://play.google.com/store/apps/details?id=com.romish.persona"
-            style={{ margin: '10px', padding: '10px 20px', backgroundColor: '#34A853', color: 'white', textDecoration: 'none', borderRadius: '5px' }}
-          >
-            Google Play
-          </a>
-        </div>
+      <h2>Скачай Persona, чтобы посмотреть профиль</h2>
+      <p>Этот профиль доступен только в приложении</p>
+      <div style={{ marginTop: '20px', display: 'flex', gap: '12px', justifyContent: 'center' }}>
+        <a
+          href="https://apps.apple.com/app/persona"
+          style={{ padding: '12px 24px', backgroundColor: '#007AFF', color: 'white', textDecoration: 'none', borderRadius: '8px' }}
+        >
+          App Store
+        </a>
+        <a
+          href="https://play.google.com/store/apps/details?id=com.romish.persona"
+          style={{ padding: '12px 24px', backgroundColor: '#34A853', color: 'white', textDecoration: 'none', borderRadius: '8px' }}
+        >
+          Google Play
+        </a>
       </div>
     </div>
   );
