@@ -3,6 +3,6 @@
     "target": {
       "namespace": "android_app",
       "package_name": "com.romish.persona",
-      "sha256_cert_fingerprints": ["YOUR_SHA256_FINGERPRINT"]
+      "sha256_cert_fingerprints": ["E3:81:08:BD:A8:A8:F4:30:45:0F:18:9C:DD:67:D3:FA:DB:93:3B:51:50:BE:75:C4:45:CF:F9:8B:77:72:1B:AD"]
     }
   }]
