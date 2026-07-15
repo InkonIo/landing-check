@@ -53,7 +53,11 @@ const Footer = () => {
           <div className="col-span-1">
             <h3 className="text-xl font-semibold mb-4">{t.footer.contacts}</h3>
             <p className="text-gray-400 mb-2">Email: tsoy.fc@yandex.kz</p>
-            <p className="text-gray-400">TOO &quot;Personabest&quot;</p>
+            <p className="text-gray-400">
+              TOO &quot;
+              <a href="http://personabest.com" className="hover:underline">Personabest.com</a>
+              &quot;
+            </p>
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-gray-800">

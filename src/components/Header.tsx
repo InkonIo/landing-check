@@ -46,7 +46,7 @@ const Header = () => {
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center">
             <Link href="/" className="text-2xl font-semibold text-gray-900 hover:text-gray-600 transition">
-              Persona
+              Persona 1.0
             </Link>
           </div>
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useState, ReactNode } from 'react'
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { Locale, TranslationSchema, translations } from './translations'
 
 type LanguageContextType = {
@@ -12,12 +12,17 @@ type LanguageContextType = {
 const LanguageContext = createContext<LanguageContextType | null>(null)
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(() => {
-    if (typeof window !== 'undefined') {
-      return (localStorage.getItem('locale') as Locale) || 'ru'
+  // Всегда одинаковый дефолт на сервере и на клиенте при первом рендере
+  const [locale, setLocaleState] = useState<Locale>('ru')
+
+  // Подтягиваем сохранённый locale уже ПОСЛЕ гидратации
+  useEffect(() => {
+    const stored = localStorage.getItem('locale') as Locale | null
+    if (stored && stored !== locale) {
+      setLocaleState(stored)
     }
-    return 'ru'
-  })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const setLocale = (l: Locale) => {
     localStorage.setItem('locale', l)
