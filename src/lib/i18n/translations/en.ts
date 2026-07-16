@@ -14,11 +14,13 @@ export const en: TranslationSchema = {
     requisites: 'Company Requisites',
   },
   hero: {
-    title: 'Persona 1.0',
-    description: 'Welcome to a project for everyone who loves, respects and values themselves... everything is in our hands and within our power, the result of our life is a reflection of our work on ourselves.... we make ourselves.... every person is the author of their own life.... Conquer yourself, and you conquer the whole world! Dear friend! Join the «Persona» community! Register — it\'s FREE — and use all the app\'s features to your advantage!... What to do next is YOUR CHOICE! Good luck!!!',
-    downloadIn: 'Download on the',
-    availableIn: 'Get it on',
-  },
+  title: 'Persona 1.0',
+  description: [
+    'A worldwide database of people in the form of user profiles and their interactions. Profile data is filled in according to the participant\'s wishes and self-positioning.',
+  ],
+  downloadIn: 'Download on the',
+  availableIn: 'Get it on',
+},
   about: {
     title: 'About the Platform',
     mission: {

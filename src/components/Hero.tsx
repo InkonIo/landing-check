@@ -14,9 +14,16 @@ const Hero = () => {
             <span style={{ color: '#4CAF7D' }}>Persona</span>{' '}
             <span style={{ color: '#4CAF7D' }}>1.0</span>
           </h1>
-          <p className="text-xl sm:text-2xl text-gray-600 leading-relaxed font-light mb-8">
-            {t.hero.description}
-          </p>
+          <div className="mb-8 space-y-6">
+            {t.hero.description.map((paragraph, index) => (
+              <p
+                key={index}
+                className="text-xl sm:text-2xl text-gray-600 leading-relaxed font-light"
+              >
+                {paragraph}
+              </p>
+            ))}
+          </div>
           <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
             <a
               href="https://apps.apple.com/kz/app/persona1/id6576817803"

@@ -16,11 +16,11 @@ export type TranslationSchema = {
     requisites: string
   }
   hero: {
-    title: string
-    description: string
-    downloadIn: string
-    availableIn: string
-  }
+  title: string
+  description: string[]
+  downloadIn: string
+  availableIn: string
+}
   about: {
     title: string
     mission: { title: string; text: string }
